@@ -531,20 +531,14 @@ def get_bookings(email):
 # GET ACTIVE BOOKING
 # =========================
 
-@app.route("/active_booking", methods=["GET"])
-
-def active_booking():
-
-    auto_release_slots()
+@app.route("/active_booking/<email>")
+def get_active_booking(email):
 
     booking = Booking.query.filter_by(
-
+        user_email=email,
         status="active"
-
     ).order_by(
-
         Booking.id.desc()
-
     ).first()
 
     if not booking:
@@ -553,8 +547,7 @@ def active_booking():
 
             "success": False,
 
-            "message":
-                "No active booking"
+            "message": "No active booking"
         })
 
     return jsonify({
@@ -587,11 +580,10 @@ def active_booking():
     })
 
 # =========================
-# CANCEL BOOKING
+# cancel BOOKING
 # =========================
 
 @app.route("/cancel_booking", methods=["POST"])
-
 def cancel_booking():
 
     try:
@@ -600,9 +592,12 @@ def cancel_booking():
 
         booking_id = data.get("booking_id")
 
+        user_email = data.get("user_email")
+
         booking = Booking.query.filter_by(
 
-            booking_uuid=booking_id
+            booking_uuid=booking_id,
+            user_email=user_email
 
         ).first()
 
@@ -613,7 +608,8 @@ def cancel_booking():
                 "success": False,
 
                 "message":
-                    "Booking not found"
+                    "Booking not found or unauthorized"
+
             }), 404
 
         if booking.status != "active":
@@ -624,6 +620,7 @@ def cancel_booking():
 
                 "message":
                     "Only active bookings can be cancelled"
+
             }), 400
 
         slot = ParkingSlot.query.filter_by(
@@ -647,6 +644,7 @@ def cancel_booking():
 
             "message":
                 "Booking Cancelled Successfully"
+
         })
 
     except Exception as e:
@@ -659,8 +657,8 @@ def cancel_booking():
 
             "message":
                 str(e)
-        }), 500
 
+        }), 500
 # =========================
 # VALIDATE QR
 # =========================
