@@ -462,32 +462,27 @@ def create_booking():
 # GET BOOKINGS
 # =========================
 
-@app.route("/bookings", methods=["GET"])
-
-def get_bookings():
+@app.route("/bookings/<email>", methods=["GET"])
+def get_bookings(email):
 
     auto_release_slots()
 
-    bookings = Booking.query.all()
+    bookings = Booking.query.filter_by(
+        user_email=email
+    ).all()
 
     status_priority = {
-
         "active": 0,
-
         "cancelled": 1,
-
         "completed": 2
     }
 
     bookings.sort(
-
         key=lambda booking: (
-
             status_priority.get(
                 booking.status,
                 99
             ),
-
             -booking.id
         )
     )
@@ -532,7 +527,6 @@ def get_bookings():
 
         "bookings": booking_list
     })
-
 # =========================
 # GET ACTIVE BOOKING
 # =========================
