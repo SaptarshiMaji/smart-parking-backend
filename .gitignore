@@ -18,6 +18,11 @@ __pycache__/
 *.db
 *.sqlite3
 
+# Generated Data
+bookings.json
+users.json
+qr_codes/
+
 # Logs
 *.log
 
