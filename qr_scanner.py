@@ -16,7 +16,7 @@ CAM_URL = \
 # =========================
 
 BACKEND_URL = \
-"http://192.168.0.103:5000/validate_qr"
+"https://smart-parking-backend-4dum.onrender.com/validate_qr"
 
 # =========================
 # ESP32 DEVKIT GATE API
