@@ -1,3 +1,9 @@
+from config import DATABASE_URI
+
+print("\nDATABASE URI:")
+print(DATABASE_URI)
+print()
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -358,6 +364,41 @@ def debug_slots():
 # =========================
 # CREATE BOOKING
 # =========================
+
+@app.route("/parking_summary", methods=["GET"])
+def parking_summary():
+
+    result = []
+
+    parking_names = db.session.query(
+        ParkingSlot.parking_name
+    ).distinct().all()
+
+    for (name,) in parking_names:
+
+        total = ParkingSlot.query.filter_by(
+            parking_name=name
+        ).count()
+
+        available = ParkingSlot.query.filter_by(
+            parking_name=name,
+            status="available"
+        ).count()
+
+        result.append({
+
+            "parking_name": name,
+
+            "available": available,
+
+            "total": total
+        })
+
+    return jsonify({
+        "success": True,
+        "data": result
+    })
+
 
 @app.route("/create_booking", methods=["POST"])
 

@@ -77,12 +77,14 @@ class ParkingSlot(db.Model):
         primary_key=True
     )
 
-    slot_number = db.Column(
-        db.String(20)
+    parking_name = db.Column(
+        db.String(200),
+        nullable=False
     )
 
-    parking_name = db.Column(
-    db.String(200)
+    slot_number = db.Column(
+        db.String(20),
+        nullable=False
     )
 
     status = db.Column(
