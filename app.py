@@ -215,6 +215,52 @@ def login():
     })
 
 # =========================
+# FORGOT PASSWORD
+# =========================
+
+@app.route(
+    "/forgot_password",
+    methods=["POST"]
+)
+def forgot_password():
+
+    data = request.json
+
+    email = data.get(
+        "email"
+    )
+
+    new_password = data.get(
+        "new_password"
+    )
+
+    user = User.query.filter_by(
+        email=email
+    ).first()
+
+    if not user:
+
+        return jsonify({
+
+            "success": False,
+
+            "message":
+                "Email not registered"
+        })
+
+    user.password = new_password
+
+    db.session.commit()
+
+    return jsonify({
+
+        "success": True,
+
+        "message":
+            "Password updated successfully"
+    })
+
+# =========================
 # GET ALL PARKING SLOTS
 # =========================
 
