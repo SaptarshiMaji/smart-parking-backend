@@ -9,7 +9,7 @@ import time
 # =========================
 
 CAM_URL = \
-"http://192.168.0.107/capture"
+"http://192.168.0.179//capture"
 
 # =========================
 # FLASK BACKEND
@@ -23,7 +23,7 @@ BACKEND_URL = \
 # =========================
 
 ENTRY_GATE_URL = \
-"http://192.168.0.108/openEntry"
+"http://192.168.0.198//openEntry"
 
 # =========================
 # SCAN CONTROL
