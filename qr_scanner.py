@@ -23,7 +23,7 @@ BACKEND_URL = \
 # =========================
 
 ENTRY_GATE_URL = \
-"http://192.168.0.198//openEntry"
+"http://192.168.0.198/openEntry"
 
 # =========================
 # SCAN CONTROL
