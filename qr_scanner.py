@@ -9,7 +9,7 @@ import time
 # =========================
 
 CAM_URL = \
-"http://192.168.0.179//capture"
+"http://192.168.0.179/capture"
 
 # =========================
 # FLASK BACKEND
